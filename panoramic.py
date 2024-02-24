@@ -4,6 +4,8 @@ from scipy.signal import convolve2d
 from scipy.ndimage import gaussian_filter
 from skimage import io
 import cv2
+import configparser
+
 
 
 def corner_detect(image, n_corners, smooth_std, window_size):
@@ -73,8 +75,11 @@ def corner_detect(image, n_corners, smooth_std, window_size):
 
     return minor_eig_image, corners
 
-def show_image(img, title, color_BGR=False, corners=None):
-    plt.figure(figsize=(10, 5))
+def show_image(img, title, color_BGR=False, corners=None, filepath=None):
+    height, width = img.shape[:2]
+    dpi = 96
+    figsize = width / float(dpi), height / float(dpi)
+    plt.figure(figsize=figsize)
     if color_BGR:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         plt.imshow(img)
@@ -83,11 +88,13 @@ def show_image(img, title, color_BGR=False, corners=None):
     
     if not corners is None:
         plt.scatter(corners[:, 0], corners[:, 1], s=25, edgecolors='r', facecolors='none')
-    plt.title(title)
+    #plt.title(title)
     plt.axis('off')
+    if filepath:
+        plt.savefig(filepath)
     plt.show()
 
-def sift_feature_matching(imgs, kp1, kp2, threshold=1):
+def sift_feature_matching(imgs, kp1, kp2, threshold=0.4):
     sift = cv2.SIFT_create()
 
 
@@ -150,7 +157,7 @@ def transform_images_homography(imgs, H):
     return output_image
     
 
-def generate_panoramic(img_paths, n_corners=200, smooth_std=.1, window_size=7):
+def generate_panoramic(img_paths, n_corners=400, smooth_std=0.3, window_size=13):
     imgs = []
     eig_imgs = []
     corners = []
@@ -158,13 +165,13 @@ def generate_panoramic(img_paths, n_corners=200, smooth_std=.1, window_size=7):
     for img_path in img_paths:
         img = cv2.imread(img_path, flags=cv2.IMREAD_GRAYSCALE)
         colored_img = cv2.imread(img_path)
-        colored_img = cv2.resize(colored_img, (min(img.shape[0], 500), min(img.shape[1], 500)))
-        img = cv2.resize(img, (min(img.shape[0], 500), min(img.shape[1], 500)))
+        colored_img = cv2.resize(colored_img, (min(img.shape[0], 1000), min(img.shape[1], 1000)))
+        img = cv2.resize(img, (min(img.shape[0], 1000), min(img.shape[1], 1000)))
         imgs.append(img)
         colored_imgs.append(colored_img)
         #img = io.imread('im' + str(i) + '.png')
-        minor_eig_image, corners_vals = corner_detect(imgs[-1], n_corners, smooth_std, window_size)
-        eig_imgs.append(minor_eig_image)
+        _, corners_vals = corner_detect(imgs[-1], n_corners, smooth_std, window_size)
+        #eig_imgs.append(minor_eig_image)
         corners.append(corners_vals)
 
     kp1 = [cv2.KeyPoint(x=float(corner[0]), y=float(corner[1]), size=20) for corner in corners[0]]
@@ -192,10 +199,13 @@ def generate_panoramic(img_paths, n_corners=200, smooth_std=.1, window_size=7):
 
 
 if __name__ == '__main__':
-    img1 = 'img1.png'
-    img2 = 'img2.png'
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    img1 = config['image_paths']['image1']
+    img2 = config['image_paths']['image2']
+
     pano = generate_panoramic([img1, img2])
-    
+
     # Save to panoramic.png
     plt.imsave('panoramic.png', cv2.cvtColor(pano, cv2.COLOR_BGR2RGB))
 
