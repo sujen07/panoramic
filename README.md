@@ -24,17 +24,17 @@ The first step in the code is a function that returns the corners in the individ
 
 Example image:
 
-<img src="im0.png" alt="Image of room with toys on tables, chairs, and a basket" width="300" height="200"/>
+<img src="im0.png" alt="Image of room with toys on tables, chairs, and a basket" width="500" height="500"/>
 
 :arrow_down:
 
 Example of Eigenimages:
 
-<img src="eigenimage.png" alt="Eigenimage of the Image from above" width="300" height="200"/>
+<img src="eigenimage.png" alt="Eigenimage of the Image from above" width="500" height="500"/>
 
 
 :arrow_down:
 
 
-<img src="corners.png" alt="Image above with the detected corners" width="300" height="200"/>
+<img src="corners.png" alt="Image above with the detected corners" width="500" height="500"/>
 
