@@ -40,3 +40,10 @@ Example of Eigenimage:
 
 <img src="corners.png" alt="Image above with the detected corners" width="500" height="500"/>
 
+
+### SIFT Feature Matching
+The SIFT algoirthm can take in key points, like the corners we find in the images and match them to corners in another image. It first creates a descriptor vector for each point, then uses euclidian distance to find the points with the least distance in the other image. Using a threshold we can keep the good matching points from image 1 to image 2.
+
+
+
+
