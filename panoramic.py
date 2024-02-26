@@ -178,6 +178,8 @@ def generate_panoramic(img_paths, n_corners=400, smooth_std=0.3, window_size=13)
     kp2 = [cv2.KeyPoint(x=float(corner[0]), y=float(corner[1]), size=20) for corner in corners[1]]
 
     _, good_matches = sift_feature_matching(imgs, kp1, kp2)
+    if len(good_matches) < 10:
+        raise Exception("Images are not able to be stitched!")
     print(len(good_matches))
 
     # Estimate Homography matrix, using RANSAC for fundamental matrix for transformation
@@ -208,7 +210,7 @@ if __name__ == '__main__':
 
     # Save to panoramic.png
     plt.imsave('panoramic.png', cv2.cvtColor(pano, cv2.COLOR_BGR2RGB))
-
+    
 
 
 
