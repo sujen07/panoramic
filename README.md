@@ -50,4 +50,10 @@ There are only 10 matches displayed in this image to see the visual easier.
 
 
 
+### Homography Matrix
+The Homography matrix is what allows the transformation of one image into the camera coordinates and calibration of the other image. The matrix is calculated using a 8 point algorithm. It takes in points from both images, and estimates a Fundamental matrix which accounts for Camera calibration, rotation, and translation, to map the two images into 3D coordinates from just their camera 2d points. After estimating the fundamental matrix using a variety of different mathicng points, there is a RANSAC model that determines the number of inliers using regression to find the best Fundamental or Homography matrix for transformation.
+
+#### Visualization of image formation with two cameras
+<img src="homography.png" alt="Image with feature matches" width="700" height="500"/>
+
 
