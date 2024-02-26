@@ -46,7 +46,7 @@ The SIFT algoirthm can take in key points, like the corners we find in the image
 
 #### Example Matches
 There are only 10 matches displayed in this image to see the visual easier.
-<img src="mathces.png" alt="Image with feature matches" width="1000" height="500"/>
+<img src="matches.png" alt="Image with feature matches" width="1000" height="500"/>
 
 
 
