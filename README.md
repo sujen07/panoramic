@@ -20,20 +20,22 @@ the code will throw an error saying the images cannot be made into a panoramic
 
 ### Corner detection
 
-The first step in the code is a function that returns the corners in the individual images. For each image, a sobel operator is used to compute the gradient in the x and y directions of the image. Using these gradient images, we can create a second-moment matrix for each pixel around a fixed window. Finding the minimum eigenvalue of each second moment matrix, gives us an eigenimage of eigenvalues at each pixel. The larger eigenvalues represent "corners" in the image where the gradient shows change in both the x and y direction. We use the eigenvalue to account for rotation in the corner, so it does not only detect upright corners. The Non-Maximum Suppression takes the eigenimage, and suppresses values near each other so only one eigenvalue is picked in a group of pixels near each other that have large eigenvalues. We then pick up the top n eigenvalues as corners in the image. 
+The first step in the code is a function that returns the corners in the individual images. For each image, a sobel operator is used to compute the gradient in the x and y directions of the image. Using these gradient images, we can create a second-moment matrix for each pixel around a fixed window. Finding the minimum eigenvalue of each second moment matrix, gives us an eigenimage of eigenvalues at each pixel.  
 
 Example image:
 
 <img src="im0.png" alt="Image of room with toys on tables, chairs, and a basket" width="500" height="500"/>
 
-:arrow_down:
+#### Eigenvalues
 
-Example of Eigenimages:
+The larger eigenvalues represent "corners" in the image where the gradient shows change in both the x and y direction. We use the eigenvalue to account for rotation in the corner, so it does not only detect upright corners. The Non-Maximum Suppression takes the eigenimage, and suppresses values near each other so only one eigenvalue is picked in a group of pixels near each other that have large eigenvalues. We then pick up the top n eigenvalues as corners in the image.
+
+Example of Eigenimage:
 
 <img src="eigenimage.png" alt="Eigenimage of the Image from above" width="500" height="500"/>
 
 
-:arrow_down:
+#### Final corners
 
 
 <img src="corners.png" alt="Image above with the detected corners" width="500" height="500"/>
