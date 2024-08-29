@@ -24,7 +24,7 @@ The first step in the code is a function that returns the corners in the individ
 
 Example image:
 
-<img src="im0.png" alt="Image of room with toys on tables, chairs, and a basket" width="500" height="500"/>
+<img src="imgs/im0.png" alt="Image of room with toys on tables, chairs, and a basket" width="500" height="500"/>
 
 #### Eigenvalues
 
@@ -32,13 +32,13 @@ The larger eigenvalues represent "corners" in the image where the gradient shows
 
 Example of Eigenimage:
 
-<img src="eigenimage.png" alt="Eigenimage of the Image from above" width="500" height="500"/>
+<img src="imgs/eigenimage.png" alt="Eigenimage of the Image from above" width="500" height="500"/>
 
 
 #### Final corners
 
 
-<img src="corners.png" alt="Image above with the detected corners" width="500" height="500"/>
+<img src="imgs/corners.png" alt="Image above with the detected corners" width="500" height="500"/>
 
 
 ### SIFT Feature Matching
@@ -46,7 +46,7 @@ The SIFT algoirthm can take in key points, like the corners we find in the image
 
 #### Example Matches
 There are only 10 matches displayed in this image to see the visual easier.
-<img src="matches.png" alt="Image with feature matches" width="1000" height="500"/>
+<img src="imgs/matches.png" alt="Image with feature matches" width="1000" height="500"/>
 
 
 
@@ -54,6 +54,6 @@ There are only 10 matches displayed in this image to see the visual easier.
 The Homography matrix is what allows the transformation of one image into the camera coordinates and calibration of the other image. The matrix is calculated using a 8 point algorithm. It takes in points from both images, and estimates a Fundamental matrix which accounts for Camera calibration, rotation, and translation, to map the two images into 3D coordinates from just their camera 2d points. After estimating the fundamental matrix using a variety of different mathicng points, there is a RANSAC model that determines the number of inliers using regression to find the best Fundamental or Homography matrix for transformation.
 
 #### Visualization of image formation with two cameras
-<img src="homography.png" alt="Homography matrix transformation visualization" width="700" height="500"/>
+<img src="imgs/homography.png" alt="Homography matrix transformation visualization" width="700" height="500"/>
 
 
